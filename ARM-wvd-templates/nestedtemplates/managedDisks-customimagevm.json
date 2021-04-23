@@ -439,34 +439,6 @@
           "mdmId": "0000000a-0000-0000-c000-000000000000"
         }
       }
-    },
-    {
-      "condition": "[not(parameters('aadJoin'))]",
-      "apiVersion": "2018-10-01",
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('rdshPrefix'), add(copyindex(), parameters('vmInitialNumber')), '/', 'joindomain')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [ "rdsh-dsc-loop" ],
-      "copy": {
-        "name": "rdsh-domain-join-loop",
-        "count": "[parameters('rdshNumberOfInstances')]"
-      },
-      "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "JsonADDomainExtension",
-        "typeHandlerVersion": "1.3",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "name": "[variables('domain')]",
-          "ouPath": "[parameters('ouPath')]",
-          "user": "[parameters('administratorAccountUsername')]",
-          "restart": "true",
-          "options": "3"
-        },
-        "protectedSettings": {
-          "password": "[parameters('administratorAccountPassword')]"
-        }
-      }
     }
   ],
   "outputs": {}
